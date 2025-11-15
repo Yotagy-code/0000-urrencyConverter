@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Conversion rates
+        double usdToUzsRate = 12050.00;
+        double usdToKgsRate = 87.45;  // 1 USD = 87.45 KGS
+        double usdToKztRate = 523.88; // 1 USD = 460 KZT (example rate)
+        double usdToEurRate = 0.86; // 1 USD = 0.92 EUR (example rate)
+
+        System.out.println("=== Currency Converter ===");
+        System.out.print("Enter amount in USD: ");
+        double amountUsd = sc.nextDouble();
+
+        // Show currency options
+        System.out.println("\nChoose a currency to convert to:");
+        System.out.println("1. KGS (Kyrgyzstani Som)");
+        System.out.println("2. KZT (Kazakhstani Tenge)");
+        System.out.println("3. EUR (Euro)");
+        System.out.println("4. UZS (Uzbekistani Som)");
+
+        System.out.print("Enter the number of the currency you want: ");
+        int choice = sc.nextInt();
+
+        double convertedAmount = 0.0;
+        String currency = "";
+
+        // Convert based on user's choice
+        switch (choice) {
+            case 1:
+                convertedAmount = amountUsd * usdToKgsRate;
+                currency = "KGS";
+                break;
+            case 2:
+                convertedAmount = amountUsd * usdToKztRate;
+                currency = "KZT";
+                break;
+            case 3:
+                convertedAmount = amountUsd * usdToEurRate;
+                currency = "EUR";
+                break;
+            case 4:
+                convertedAmount = amountUsd * usdToUzsRate;
+                currency = "UZS";
+                break;    
+                
+            default:
+                System.out.println("Invalid choice. Please enter 1, 2, 3 or 4");
+                return; // Exit if the input is invalid
+        }
+
+        // Print the result
+        System.out.printf("%.2f USD = %.2f %s%n", amountUsd, convertedAmount, currency);
+
+        sc.close();
+    }
+}
