@@ -5,10 +5,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // Conversion rates
-        double usdToUzsRate = 12050.00;
+        double usdToUzsRate = 12050.00; // 1 USD = 12050.00 UZS
         double usdToKgsRate = 87.45;  // 1 USD = 87.45 KGS
-        double usdToKztRate = 523.88; // 1 USD = 460 KZT (example rate)
-        double usdToEurRate = 0.86; // 1 USD = 0.92 EUR (example rate)
+        double usdToKztRate = 523.88; // 1 USD = 523.88 KZT (example rate)   
+        double usdToEurRate = 0.86; // 1 USD = 0.86 EUR (example rate)
 
         System.out.println("=== Currency Converter ===");
         System.out.print("Enter amount in USD: ");
@@ -19,7 +19,7 @@ public class Main {
         System.out.println("1. KGS (Kyrgyzstani Som)");
         System.out.println("2. KZT (Kazakhstani Tenge)");
         System.out.println("3. EUR (Euro)");
-        System.out.println("4. UZS (Uzbekistani Som)");
+        System.out.println("4. UZS (Uzbekistani Sum)");
 
         System.out.print("Enter the number of the currency you want: ");
         int choice = sc.nextInt();
