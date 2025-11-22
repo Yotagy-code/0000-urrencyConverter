@@ -1,57 +1,85 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
-        // Conversion rates
-        double usdToUzsRate = 12050.00; // 1 USD = 12050.00 UZS
-        double usdToKgsRate = 87.45;  // 1 USD = 87.45 KGS
-        double usdToKztRate = 523.88; // 1 USD = 523.88 KZT (example rate)   
-        double usdToEurRate = 0.86; // 1 USD = 0.86 EUR (example rate)
+        // === Currency menu (number → currency code) ===
+        Map<Integer, String> currencyMenu = new HashMap<>();
+        currencyMenu.put(1, "KGS");
+        currencyMenu.put(2, "KZT");
+        currencyMenu.put(3, "EUR");
+        currencyMenu.put(4, "UZS");
+        currencyMenu.put(5, "RUB");
+        currencyMenu.put(6, "GBP");
+        currencyMenu.put(7, "JPY");
+        currencyMenu.put(8, "AUD");
+        currencyMenu.put(9, "CAD");
+        currencyMenu.put(10, "TRY");
+        currencyMenu.put(11, "AED");
+        currencyMenu.put(12, "CHF");
+        currencyMenu.put(13, "CNY");
+        currencyMenu.put(14, "UAH");
+
+        // === Conversion rates relative to USD ===
+        Map<String, Double> rates = new HashMap<>();
+
+        rates.put("KGS", 87.45);
+        rates.put("KZT", 523.88);
+        rates.put("EUR", 0.86);
+        rates.put("UZS", 12050.00);
+
+        // 10 added currencies
+        rates.put("RUB", 96.50);
+        rates.put("GBP", 0.79);
+        rates.put("JPY", 149.30);
+        rates.put("AUD", 1.52);
+        rates.put("CAD", 1.36);
+        rates.put("TRY", 33.10);
+        rates.put("AED", 3.67);
+        rates.put("CHF", 0.88);
+        rates.put("CNY", 7.24);
+        rates.put("UAH", 41.20);
 
         System.out.println("=== Currency Converter ===");
+
+        // Input amount
         System.out.print("Enter amount in USD: ");
+        if (!sc.hasNextDouble()) {
+            System.out.println("Invalid number.");
+            return;
+        }
         double amountUsd = sc.nextDouble();
 
-        // Show currency options
+        // Show menu
         System.out.println("\nChoose a currency to convert to:");
-        System.out.println("1. KGS (Kyrgyzstani Som)");
-        System.out.println("2. KZT (Kazakhstani Tenge)");
-        System.out.println("3. EUR (Euro)");
-        System.out.println("4. UZS (Uzbekistani Sum)");
-
-        System.out.print("Enter the number of the currency you want: ");
-        int choice = sc.nextInt();
-
-        double convertedAmount = 0.0;
-        String currency = "";
-
-        // Convert based on user's choice
-        switch (choice) {
-            case 1:
-                convertedAmount = amountUsd * usdToKgsRate;
-                currency = "KGS";
-                break;
-            case 2:
-                convertedAmount = amountUsd * usdToKztRate;
-                currency = "KZT";
-                break;
-            case 3:
-                convertedAmount = amountUsd * usdToEurRate;
-                currency = "EUR";
-                break;
-            case 4:
-                convertedAmount = amountUsd * usdToUzsRate;
-                currency = "UZS";
-                break;    
-                
-            default:
-                System.out.println("Invalid choice. Please enter 1, 2, 3 or 4");
-                return; // Exit if the input is invalid
+        for (Map.Entry<Integer, String> entry : currencyMenu.entrySet()) {
+            System.out.println(entry.getKey() + ". " + entry.getValue());
         }
 
-        // Print the result
+        System.out.print("Enter your choice (1–14): ");
+        if (!sc.hasNextInt()) {
+            System.out.println("Invalid input.");
+            return;
+        }
+        int choice = sc.nextInt();
+
+        if (!currencyMenu.containsKey(choice)) {
+            System.out.println("Invalid choice (1–14 only).");
+            return;
+        }
+
+        // Get selected currency
+        String currency = currencyMenu.get(choice);
+        double rate = rates.get(currency);
+
+        // Convert
+        double convertedAmount = amountUsd * rate;
+
+        System.out.println("\n=== Conversion Result ===");
         System.out.printf("%.2f USD = %.2f %s%n", amountUsd, convertedAmount, currency);
 
         sc.close();
